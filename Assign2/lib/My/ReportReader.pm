@@ -9,20 +9,22 @@ use File::Slurp;
 use Exporter qw(import);
 our @EXPORT_OK = qw(print_data);
 
-my %meta = ();
-my $data = {};
-my @dataarr =();
-my %final = ();
-my $datafilled = 0;
+my %meta = ();  #hash
+my $data = {};	#scalar reference to hash
+my @dataarr =();  #array #if ref to array $arrref= []
+my %final = ();	  #hash
+my $datafilled = 0; # $refvar = \$var
 
 sub read_report{
-	my $inputFile= shift @_;
-	my @textArray = read_file($inputFile);
+	my $inputFile= shift @_;  #removes and returns the first element of an array 
+	my @textArray = read_file($inputFile);	#File::Slurp module
 	initialize_meta_hash();
 	initialize_data_hash();
 	foreach my $string ( @textArray ) {
 		chomp $string;
 		my @lineSplit= split(/:/, $string, 2);
+		
+		# get size of array 
 		if(scalar @lineSplit > 1){
 			my $key= extract_key(lc($lineSplit[0]));
 			if($key =~ m/^slack/ and $datafilled == 1){
@@ -50,6 +52,10 @@ sub print_data{
 	print Dumper(\%final);
 }
 
+# Adding values to hash directly:
+# $meta{'key'}= value;
+# Adiing values to reference of hash:
+# $data->{'key'}= value;
 sub insert_into_meta{
 	my $key= $_[0];
 	my $value= $_[1];
