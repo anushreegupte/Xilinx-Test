@@ -1,0 +1,21 @@
+Assign1
+----------------
+Files--
+1. Assign1/Convert2XL.pl- Perl script to read the XML file and generate xlsx with 3 sheets. 
+2. Input file: Assign1/convert2xl.xml
+
+Usage--
+perl Assign1/Convert2XL.pl 
+
+Output--
+Assign1/converted.xls
+
+Dependencies—-
+If you don’t have Excel::Writer perl module on your system install it using following steps:
+1. Extract Assign1/Dependencies/Excel-Writer-XLSX-0.76.tar.gz
+2. cd Assign1/Dependencies/Excel-Writer-XLSX-0.76
+3. perl Makefile.pl
+4. make
+5. make test
+6. sudo make install
+7. You’re done

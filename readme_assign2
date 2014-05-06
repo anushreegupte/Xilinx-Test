@@ -1,0 +1,12 @@
+Assign2
+----------------
+Files--
+1. Assign2/lib/ReportReader.pm	- Perl module that loads report to data structure and dumps using Dumper.
+2. Assign2/bin/TestReportReader.pl - Perl script to test the perl module
+3. Assign2/input/postroute_timing_max.rpt - Input report file
+
+Usage--
+perl Assign2/bin/TestReportReader.pl Assign2/input/postroute_timing_max.rpt >  Assign2/output/postroute_timing_max.dump
+
+Output--
+Assign2/output/postroute_timing_max.dumptestutput/postroute_timing_max.dump
