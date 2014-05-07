@@ -47,13 +47,16 @@ my $group2row = 1;
 my @fieldstowrite=( 'Group', 'Suite', 'Total', 'Total Pass', 'Total Fail', 'Pass percentage', 'Metric1 Avg', 'Metric2 Avg' );
 write_to_excel('summary', \$summaryrow, 'header', \@fieldstowrite);
 
+# for each test nodes from list
 for my $test ($xmldoc->findnodes('/testresults/test')) {
 	
+	# for each field in test node		
     for my $field ($test->findnodes('./*')) {
         #print $field->nodeName(), ": ", $field->textContent(), "\n";
 	if($field->nodeName() eq "name"){
 		$tcs=$field->textContent();	
 	}else{
+		# Assign values to declared field variables
 		${$field->nodeName()} = $field->textContent();
 	}
     }
@@ -76,6 +79,7 @@ write_to_excel('group1', \$group1row, 'nonheader', \@fieldstowrite);
 #print "Suite , TCS , RESULT , METRIC1, METRIC2 \n";
 @fieldstowrite=('Suite' , 'TCS' , 'RESULT' , 'METRIC1' , 'METRIC2');
 write_to_excel('group1', \$group1row, 'header', \@fieldstowrite);
+
 # Process group1
 my $group1 = $final->{"group1"};
 foreach my $suite (sort  keys $group1){
@@ -84,6 +88,7 @@ foreach my $suite (sort  keys $group1){
 	my $metric1sum = 0;
 	my $metric2sum = 0;
 	my $count = 0;
+	# process tcs
 	foreach my $tcs (sort { $a <=> $b } keys $group1->{$suite}){
 		my $innerhash = $group1->{$suite}->{$tcs};
 		my $result = $innerhash->{'result'};
@@ -144,7 +149,7 @@ foreach my $suite (sort keys $group2){
 		my @innerfieldstowrite=($suite, $tcs, $result, $metric1, $metric2);
 		write_to_excel('group2', \$group2row, 'nonheader', \@innerfieldstowrite);
 
-		# Gettting summary
+		# Getting summary
 		if($result eq "PASS"){
 			$pass = $pass + 1;
 		}else{
@@ -165,6 +170,7 @@ foreach my $suite (sort keys $group2){
 
 #print "-----------------------------------------------------------------\n";
 
+# to calculate group- metric avg
 sub add_metric{
 	my $group = $_[0];
 	my $metric1value = $_[1];
